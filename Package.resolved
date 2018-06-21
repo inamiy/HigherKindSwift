@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "FileCheck",
+        "repositoryURL": "https://github.com/llvm-swift/FileCheck.git",
+        "state": {
+          "branch": null,
+          "revision": "e5871587ddf85c0bcf84f773925655f2f83ef336",
+          "version": "0.0.7"
+        }
+      },
+      {
+        "package": "Prelude",
+        "repositoryURL": "https://github.com/pointfreeco/swift-prelude.git",
+        "state": {
+          "branch": "25773a7",
+          "revision": "25773a7dc130008714bfe3658bcba912834e2e2f",
+          "version": null
+        }
+      },
+      {
+        "package": "SnapshotTesting",
+        "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
+        "state": {
+          "branch": "2a0edb4",
+          "revision": "2a0edb4355793040ea1a80d580b42d1c651332c0",
+          "version": null
+        }
+      },
+      {
+        "package": "Tagged",
+        "repositoryURL": "https://github.com/pointfreeco/swift-tagged.git",
+        "state": {
+          "branch": null,
+          "revision": "17c4ad4a687a5250313bb668fedce614891f03c4",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "SwiftCheck",
+        "repositoryURL": "https://github.com/typelift/SwiftCheck.git",
+        "state": {
+          "branch": null,
+          "revision": "43ffe7ab48366c36a697c54bcdd257876edd6fc6",
+          "version": "0.10.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
