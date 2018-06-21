@@ -2,6 +2,8 @@
 
 An experimental [Higher Kinded Types](https://en.wikipedia.org/wiki/Kind_(type_theory)) in Swift, originally from the paper: [Lightweight Higher-Kinded Polymorphism][flops-2014-paper].
 
+Slide: [Swiftで高カインド多相 \- Speaker Deck](https://speakerdeck.com/inamiy/swiftdegao-kaindoduo-xiang) (in Japanese 🇯🇵)
+
 ## Examples
 
 ### Monad
