@@ -35,6 +35,10 @@ let list = [1, 2, 3].kind
 list == List.cons(1, .cons(2, .cons(3, .nil)))
 ```
 
+## Warning
+
+There is a Swift 4.2 compiler bug (?) when `swift build -c debug`, so please always build with `swift build -c release`.
+
 ## References
 
 - [Lightweight Higher-Kinded Polymorphism][flops-2014-paper]

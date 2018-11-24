@@ -1,9 +1,9 @@
 // MARK: - Applicative
 
-public protocol Applicative: Functor where F: ForApplicative
+public protocol Applicative: Functor where F1: ForApplicative
 {
-    static func pure<A>(_ value: A) -> Kind<F, A>
-    static func apply<A, B>(_ f: Kind<F, (A) -> B>, _ a: Kind<F, A>) -> Kind<F, B>
+    static func pure(_ value: A1) -> Kind<F1, A1>
+    static func apply<B>(_ f: Kind<F1, (A1) -> B>, _ a: Kind<F1, A1>) -> Kind<F1, B>
 }
 
 // MARK: - ForApplicative
@@ -14,20 +14,22 @@ public protocol ForApplicative: ForFunctor
     static func apply<A, B>(_ f: Kind<Self, (A) -> B>, _ a: Kind<Self, A>) -> Kind<Self, B>
 }
 
-extension Kind: Applicative where F: ForApplicative
+// MARK: - Default implementation
+
+extension Kind: Applicative where F1: ForApplicative
 {
-    public static func pure<A>(_ value: A) -> Kind<F, A>
+    // Default implementation.
+    public static func pure(_ value: A1) -> Kind<F1, A1>
     {
-        return F.pure(value)
+        return F1.pure(value)
     }
 
-    public static func apply<A, B>(_ f: Kind<F, (A) -> B>, _ a: Kind<F, A>) -> Kind<F, B>
+    // Default implementation.
+    public static func apply<B>(_ f: Kind<F1, (A1) -> B>, _ a: Kind<F1, A1>) -> Kind<F1, B>
     {
-        return F.apply(f, a)
+        return F1.apply(f, a)
     }
 }
-
-// MARK: - PseudoApplicative
 
 /// - Note:
 /// Use this fancy protocol for true type-constructors.

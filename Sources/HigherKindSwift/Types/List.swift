@@ -59,12 +59,12 @@ extension List: PseudoFunctor
 /// - Note: autogeneratable
 extension List: PseudoApplicative
 {
-    public static func pure<A>(_ value: A) -> List<A>
+    public static func pure(_ value: A1) -> List<A1>
     {
         return ForList.pure(value).value
     }
 
-    public static func apply<A, B>(_ f: List<(A) -> B>, _ a: List<A>) -> List<B>
+    public static func apply<B>(_ f: List<(A1) -> B>, _ a: List<A1>) -> List<B>
     {
         return ForList.apply(f.kind, a.kind).value
     }
@@ -85,7 +85,7 @@ extension List: PseudoMonad
 public enum ForList {}
 
 /// - Note: autogeneratable
-extension Kind where F == ForList
+extension Kind where F1 == ForList
 {
     public var value: List<A1>
     {
@@ -115,11 +115,14 @@ extension ForList: ForApplicative
         return List<A>.cons(value, .nil).kind
     }
 
-    public static func apply<A, B>(_ f: Kind<ForList, (A) -> B>, _ a: Kind<ForList, A>) -> Kind<ForList, B>
+    public static func apply<A, B>(
+        _ f: Kind<ForList, (A) -> B>,
+        _ a: Kind<ForList, A>
+        ) -> Kind<ForList, B>
     {
         switch (f.value, a.value) {
         case let (.cons(f, tail1), .cons(a, tail2)):
-            return List<B>.cons(f(a), apply(tail1.kind, tail2.kind).value).kind
+            return List<B>.cons(f(a), self.apply(tail1.kind, tail2.kind).value).kind
         default:
             return List<B>.nil.kind
         }
@@ -128,7 +131,9 @@ extension ForList: ForApplicative
 
 extension ForList: ForMonad
 {
-    public static func bind<A, B>(_ f: @escaping (A) -> Kind<ForList, B>) -> (Kind<ForList, A>) -> Kind<ForList, B>
+    public static func bind<A, B>(
+        _ f: @escaping (A) -> Kind<ForList, B>
+        ) -> (Kind<ForList, A>) -> Kind<ForList, B>
     {
         return { kind in
             switch kind.value {

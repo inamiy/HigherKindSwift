@@ -1,14 +1,14 @@
 import Prelude
 import SwiftCheck
-
 import XCTest
-@testable import HigherKindSwift
+import HigherKindSwift
 
 final class NaturalTransformationTests: XCTestCase
 {
     func testNaturalTransformation()
     {
-        it("Using protocol") {
+        describe("Using protocol") {
+
             it(".some(1) -> [1]") {
                 let result = Optional(1).kind
                     .naturalTransform(OptionalToArray.self).value
@@ -32,9 +32,11 @@ final class NaturalTransformationTests: XCTestCase
                     .naturalTransform(ListToArray.self).value
                 XCTAssertEqual(result, [1, 2, 3])
             }
+
         }
 
-        it("Custom functions") {
+        describe("Custom functions") {
+
             it("Inline closure") {
                 let result = [1, 2, 3].kind
                     .naturalTransform { $0.value.first.kind }.value
@@ -51,9 +53,10 @@ final class NaturalTransformationTests: XCTestCase
                     .naturalTransform(first).value
                 XCTAssertEqual(result, .some(1))
             }
+
         }
 
-        it("Naturality condition") {
+        describe("Naturality condition") {
 
             /// Plain morphism: String -> Int
             func f(_ str: String) -> Int

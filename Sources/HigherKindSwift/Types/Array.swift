@@ -30,12 +30,12 @@ extension Array: PseudoFunctor
 /// - Note: autogeneratable
 extension Array: PseudoApplicative
 {
-    public static func pure<A>(_ value: A) -> Array<A>
+    public static func pure(_ value: A1) -> Array<A1>
     {
         return ForArray.pure(value).value
     }
 
-    public static func apply<A, B>(_ f: Array<(A) -> B>, _ a: Array<A>) -> Array<B>
+    public static func apply<B>(_ f: Array<(A1) -> B>, _ a: Array<A1>) -> Array<B>
     {
         return ForArray.apply(f.kind, a.kind).value
     }
@@ -56,7 +56,7 @@ extension Array: PseudoMonad
 public enum ForArray {}
 
 /// - Note: autogeneratable
-extension Kind where F == ForArray
+extension Kind where F1 == ForArray
 {
     public var value: Array<A1>
     {
@@ -79,7 +79,10 @@ extension ForArray: ForApplicative
         return [value].kind
     }
 
-    public static func apply<A, B>(_ f: Kind<ForArray, (A) -> B>, _ a: Kind<ForArray, A>) -> Kind<ForArray, B>
+    public static func apply<A, B>(
+        _ f: Kind<ForArray, (A) -> B>,
+        _ a: Kind<ForArray, A>
+        ) -> Kind<ForArray, B>
     {
         var arr = [B]()
         for f_ in f.value {

@@ -31,12 +31,12 @@ extension Optional: PseudoFunctor
 /// - Note: autogeneratable
 extension Optional: PseudoApplicative
 {
-    public static func pure<A>(_ value: A) -> Optional<A>
+    public static func pure(_ value: A1) -> Optional<A1>
     {
         return ForOptional.pure(value).value
     }
 
-    public static func apply<A, B>(_ f: Optional<(A) -> B>, _ a: Optional<A>) -> Optional<B>
+    public static func apply<B>(_ f: Optional<(A1) -> B>, _ a: Optional<A1>) -> Optional<B>
     {
         return ForOptional.apply(f.kind, a.kind).value
     }
@@ -57,7 +57,7 @@ extension Optional: PseudoMonad
 public enum ForOptional {}
 
 /// - Note: autogeneratable
-extension Kind where F == ForOptional
+extension Kind where F1 == ForOptional
 {
     public var value: Optional<A1>
     {
@@ -80,7 +80,10 @@ extension ForOptional: ForApplicative
         return Optional<A>(value).kind
     }
 
-    public static func apply<A, B>(_ f: Kind<ForOptional, (A) -> B>, _ a: Kind<ForOptional, A>) -> Kind<ForOptional, B>
+    public static func apply<A, B>(
+        _ f: Kind<ForOptional, (A) -> B>,
+        _ a: Kind<ForOptional, A>
+        ) -> Kind<ForOptional, B>
     {
         if let f = f.value, let a = a.value {
             return Optional(f(a)).kind
@@ -93,7 +96,9 @@ extension ForOptional: ForApplicative
 
 extension ForOptional: ForMonad
 {
-    public static func bind<A, B>(_ f: @escaping (A) -> Kind<ForOptional, B>) -> (Kind<ForOptional, A>) -> Kind<ForOptional, B>
+    public static func bind<A, B>(
+        _ f: @escaping (A) -> Kind<ForOptional, B>
+        ) -> (Kind<ForOptional, A>) -> Kind<ForOptional, B>
     {
         return { $0.value.flatMap { f($0).value }.kind }
     }
