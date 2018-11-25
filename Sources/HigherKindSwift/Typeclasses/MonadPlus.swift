@@ -1,9 +1,9 @@
 // MARK: - MonadPlus
 
-public protocol MonadPlus: Monad where F: ForMonadPlus
+public protocol MonadPlus: Monad where F1: ForMonadPlus
 {
-    static func mzero<A>() -> Kind<F, A>
-    func mplus(_ kind: Kind<F, A1>) -> Kind<F, A1>
+    static func mzero<A>() -> Kind<F1, A>
+    func mplus(_ kind: Kind<F1, A1>) -> Kind<F1, A1>
 }
 
 // MARK: - ForMonadPlus
@@ -14,16 +14,18 @@ public protocol ForMonadPlus: ForMonad
     static func mplus<A>(_ kind1: Kind<Self, A>, _ kind2: Kind<Self, A>) -> Kind<Self, A>
 }
 
-extension Kind: MonadPlus where F: ForMonadPlus
+// MARK: - Default implementation
+
+extension Kind: MonadPlus where F1: ForMonadPlus
 {
-    public static func mzero<A>() -> Kind<F, A>
+    public static func mzero<A>() -> Kind<F1, A>
     {
-        return F.mzero()
+        return F1.mzero()
     }
 
-    public func mplus(_ kind: Kind<F, A1>) -> Kind<F, A1>
+    public func mplus(_ kind: Kind<F1, A1>) -> Kind<F1, A1>
     {
-        return F.mplus(self, kind)
+        return F1.mplus(self, kind)
     }
 }
 

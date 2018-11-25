@@ -69,7 +69,7 @@ extension Tree: PseudoFunctor
 public enum ForTree {}
 
 /// - Note: autogeneratable
-extension Kind where F == ForTree
+extension Kind where F1 == ForTree
 {
     public var value: Tree<A1>
     {

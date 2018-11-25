@@ -1,7 +1,7 @@
 // MARK: - Kind
 
 /// `F` as `* -> *`.
-public struct Kind<F: ForTypeConstructor, A1>
+public struct Kind<F1, A1>
 {
     internal let _value: Any
 
@@ -13,12 +13,12 @@ public struct Kind<F: ForTypeConstructor, A1>
 
 extension Kind: KindConvertible
 {
-    public init(kind: Kind<F, A1>)
+    public init(kind: Kind<F1, A1>)
     {
         self = kind
     }
 
-    public var kind: Kind<F, A1>
+    public var kind: Kind<F1, A1>
     {
         return self
     }
@@ -27,7 +27,7 @@ extension Kind: KindConvertible
 // MARK: - Kind2
 
 /// `F` as `* -> * -> *`.
-public struct Kind2<F: ForTypeConstructor2, A1, A2>
+public struct Kind2<F2, A2, A1>
 {
     internal let _value: Any
 
@@ -39,12 +39,12 @@ public struct Kind2<F: ForTypeConstructor2, A1, A2>
 
 extension Kind2: Kind2Convertible
 {
-    public init(kind2: Kind2<F, A1, A2>)
+    public init(kind2: Kind2<F2, A2, A1>)
     {
         self = kind2
     }
 
-    public var kind2: Kind2<F, A1, A2>
+    public var kind2: Kind2<F2, A2, A1>
     {
         return self
     }

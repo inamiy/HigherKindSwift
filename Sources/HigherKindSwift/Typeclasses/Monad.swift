@@ -1,8 +1,8 @@
 // MARK: - Monad
 
-public protocol Monad: Applicative where F: ForMonad
+public protocol Monad: Applicative where F1: ForMonad
 {
-    func bind<B>(_ f: @escaping (A1) -> Kind<F, B>) -> Kind<F, B>
+    func bind<B>(_ f: @escaping (A1) -> Kind<F1, B>) -> Kind<F1, B>
 }
 
 // MARK: - ForMonad
@@ -12,16 +12,14 @@ public protocol ForMonad: ForApplicative
     static func bind<A, B>(_ f: @escaping (A) -> Kind<Self, B>) -> (Kind<Self, A>) -> Kind<Self, B>
 }
 
-extension Kind: Monad where F: ForMonad
-{
-    public static func pure<A>(_ value: A) -> Kind<F, A>
-    {
-        return F.pure(value)
-    }
+// MARK: - Default implementation
 
-    public func bind<B>(_ f: @escaping (A1) -> Kind<F, B>) -> Kind<F, B>
+extension Kind: Monad where F1: ForMonad
+{
+    // Default implementation.
+    public func bind<B>(_ f: @escaping (A1) -> Kind<F1, B>) -> Kind<F1, B>
     {
-        return F.bind(f)(self)
+        return F1.bind(f)(self)
     }
 }
 

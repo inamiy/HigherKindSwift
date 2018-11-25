@@ -2,24 +2,27 @@
 
 public protocol Functor
 {
-    associatedtype F: ForFunctor
+    associatedtype F1: ForFunctor
     associatedtype A1
 
-    func fmap<B>(_ f: @escaping (A1) -> B) -> Kind<F, B>
+    func fmap<B>(_ f: @escaping (A1) -> B) -> Kind<F1, B>
 }
 
 // MARK: - ForFunctor
 
-public protocol ForFunctor: ForTypeConstructor
+public protocol ForFunctor
 {
     static func fmap<A, B>(_ f: @escaping (A) -> B) -> (Kind<Self, A>) -> Kind<Self, B>
 }
 
-extension Kind: Functor where F: ForFunctor
+// MARK: - Default implementation
+
+extension Kind: Functor where F1: ForFunctor
 {
-    public func fmap<B>(_ f: @escaping (A1) -> B) -> Kind<F, B>
+    // Default implementation.
+    public func fmap<B>(_ f: @escaping (A1) -> B) -> Kind<F1, B>
     {
-        return F.fmap(f)(self)
+        return F1.fmap(f)(self)
     }
 }
 
